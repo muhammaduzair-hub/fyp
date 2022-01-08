@@ -75,26 +75,26 @@ CREATE TABLE $organTable (
     return result.map((json) => Organ.fromJson(json)).toList();
   }
 
-  // Future<int> update(Note note) async {
-  //   final db = await instance.database;
+  Future<int> update(Organ note) async {
+    final db = await instance.database;
 
-  //   return db.update(
-  //     tableNotes,
-  //     note.toJson(),
-  //     where: '${NoteFields.id} = ?',
-  //     whereArgs: [note.id],
-  //   );
-  // }
+    return db.update(
+      organTable,
+      note.toJson(),
+      where: '${OrgansFields.id} = ?',
+      whereArgs: [note.id],
+    );
+  }
 
-  // Future<int> delete(int id) async {
-  //   final db = await instance.database;
+  Future<int> delete(int id) async {
+    final db = await instance.database;
 
-  //   return await db.delete(
-  //     tableNotes,
-  //     where: '${NoteFields.id} = ?',
-  //     whereArgs: [id],
-  //   );
-  // }
+    return await db.delete(
+      organTable,
+      where: '${OrgansFields.id} = ?',
+      whereArgs: [id],
+    );
+  }
 
   Future close() async {
     final db = await instance.database;

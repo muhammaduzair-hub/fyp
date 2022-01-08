@@ -17,7 +17,7 @@ class OrgansFields {
 class Organ {
   final int id;
   final String title;
-  final String comment;
+  String comment;
 
   Organ({this.id, this.title, this.comment});
 

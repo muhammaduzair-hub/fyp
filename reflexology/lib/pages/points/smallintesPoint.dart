@@ -21,9 +21,9 @@ class _footPageState extends State<smallintesPoint>{
 List<Organ> coments = [];
 
 getComments() async{
+  coments.clear();
   coments =await dbInstance.readNote("SMALL_INTESTINE");
   setState(() {});
-  print("============================================================${coments.length}");
 }
 
 @override
@@ -116,14 +116,64 @@ getComments() async{
                height: 170,
                width: double.infinity,
                child: ListView.separated(
+                 shrinkWrap: true,
                  scrollDirection: Axis.vertical,
                  itemCount: coments.length,
                  itemBuilder: (context, index){
-                   return Text(coments[index].comment);
+                   return ListTile(
+                     title: Text(coments[index].comment),
+                     trailing: Wrap(
+                       children: [
+                         //Edit Button
+                         IconButton(
+                           icon: Icon(Icons.edit),
+                           onPressed: (){
+                             TextEditingController text = TextEditingController(text: coments[index].comment);
+                             showDialog(
+                               barrierDismissible: false,
+                               context: context,
+                               builder: (context) => AlertDialog(
+                                 title: TextField(
+                                   controller: text,
+                                 ),
+                                 actions: [
+                                   ElevatedButton(
+                                     child: Text("OK"),
+                                     onPressed: () async{
+                                       coments[index].comment = text.text;
+                                       await dbInstance.update(coments[index]);
+                                       Navigator.pop(context);
+                                       setState(() {});
+                                     },
+                                   ),
+                                   ElevatedButton(
+                                     child: Text("Cancel"),
+                                     onPressed: (){
+                                       Navigator.pop(context);
+                                     },
+                                   ),
+                                 ],
+                               ),
+                             );
+                            
+                           },
+                         ),
+                         //Delete Button
+                         IconButton(
+                           icon: Icon(Icons.delete),
+                           onPressed: () async{
+                             await dbInstance.delete(coments[index].id);
+                             getComments();
+                             setState(() {});
+                           },
+                         )
+                       ],
+                     ),
+                   );
                  },
                  
                  separatorBuilder: (context, index){
-                   return Text("____________________________________________________________________________");
+                   return Divider(thickness: 1,);
                  },
                ),
              ),
