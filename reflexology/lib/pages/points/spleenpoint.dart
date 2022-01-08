@@ -21,13 +21,14 @@ class _footPageState extends State<spleenPoint>{
 List<Organ> coments = [];
 
 getComments() async{
-  coments =await dbInstance.readNote("SPLEEN");
+  coments =await dbInstance.readNote("SMALL_INTESTINE");
   setState(() {});
   print("============================================================${coments.length}");
 }
 
 @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
     getComments();
@@ -63,7 +64,7 @@ getComments() async{
             child: InkWell(
             // child: Container(
             //   height: (MediaQuery.of(context).size.height)/2,
-              child: SizedBox(height: 600,
+              child: SizedBox(height: 450,
               width: 800,
                 child: Image(
                   
@@ -79,14 +80,17 @@ getComments() async{
             width: 360,
               child: Container(child:TextFormField
               (decoration: InputDecoration( 
+                
                 border: OutlineInputBorder(
+                  
                   borderSide: BorderSide(width: 2),
                   borderRadius: const BorderRadius.all(const Radius.circular(40.0),),
                   
                 ),
-              
-                prefixText: 'FEEDBACK : ',
-                prefixIcon: Icon(Icons.feedback_outlined),
+                
+                hintText: 'Write Something about Pressure Point ',
+               // prefixText: 'FEEDBACK : ',
+               // prefixIcon: Icon(Icons.feedback_outlined),
 
                 // hintText: 'Type Here',
                 // hintStyle: TextStyle(fontFamily: 'Cairo',fontStyle: FontStyle.italic,fontSize: 15)
@@ -107,49 +111,86 @@ getComments() async{
              ),
 
              Container(
-               color: Colors.yellow,
-               height: 50,
+               
+               color: Colors.grey[100],
+               height: 170,
                width: double.infinity,
                child: ListView.separated(
-                 scrollDirection: Axis.horizontal,
+                 scrollDirection: Axis.vertical,
                  itemCount: coments.length,
                  itemBuilder: (context, index){
                    return Text(coments[index].comment);
                  },
+                 
                  separatorBuilder: (context, index){
-                   return Text(",");
+                   return Text("____________________________________________________________________________");
                  },
                ),
              ),
 
            Center(
-             child: Container(
-              
-               child: SizedBox(
-                 height: 50,
-                 width: 120,
-                 child: ElevatedButton(
-                   
-                   style: ElevatedButton.styleFrom(
-                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40),),
-                     shadowColor: Colors.blue,
-                     elevation: 10,
-                     visualDensity: VisualDensity.standard,
-                     primary: Colors.red[100],
+             child: Padding(
+               padding: const EdgeInsets.all(10.0),
+               child: Container(
+                
+                 child: SizedBox(
+                   height: 50,
+                   width: 120,
+                   child: ElevatedButton(
                      
-                   ),
-                   
-                   
-                   child: Text('Main Menu',style: TextStyle(color: Colors.redAccent,fontSize: 20,fontWeight: FontWeight.w400)),
-                   
-                   onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => (MyHomePagee())));},),
+                     style: ElevatedButton.styleFrom(
+                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40),),
+                       shadowColor: Colors.blue,
+                       elevation: 10,
+                       visualDensity: VisualDensity.standard,
+                       primary: Colors.red[100],
+                       
+                     ),
+                     
+                     
+                     child: Text('Main Menu',style: TextStyle(color: Colors.redAccent,fontSize: 20,fontWeight: FontWeight.w400)),
+                     
+                     onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => (MyHomePagee())));},),
+                 ),
                ),
              ),
-           )
+           ),
+            // Padding(
+            //   padding: const EdgeInsets.all(0.0),
+            //   child: Container(
+            //    child: Padding(
+            //      padding: const EdgeInsets.fromLTRB(250, 5, 5, 55),
+            //      child: Container(
+                  
+            //        child: SizedBox(
+            //          height: 50,
+            //          width: 100,
+            //          child: ElevatedButton(
+                       
+            //            style: ElevatedButton.styleFrom(
+            //              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40),),
+            //              shadowColor: Colors.blue,
+            //              elevation: 10,
+            //              visualDensity: VisualDensity.standard,
+            //              primary: Colors.red[100],
+                         
+            //            ),
+                       
+                       
+            //            child: Text('Main Menu',style: TextStyle(color: Colors.redAccent,fontSize: 20,fontWeight: FontWeight.w400)),
+                       
+            //            onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => (MyHomePagee())));
+            //            },),
+            //        ),
+            //      ),
+            //    ),
+          // ),
+          //  )
         ],
       ),
     
    );
   }
+
 
 }

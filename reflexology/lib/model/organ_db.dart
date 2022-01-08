@@ -40,7 +40,7 @@ CREATE TABLE $organTable (
     final db = await instance.database;
 
     // final json = note.toJson();
-    // final columns =
+    // final columns =   
     //     '${NoteFields.title}, ${NoteFields.description}, ${NoteFields.time}';
     // final values =
     //     '${json[NoteFields.title]}, ${json[NoteFields.description]}, ${json[NoteFields.time]}';
